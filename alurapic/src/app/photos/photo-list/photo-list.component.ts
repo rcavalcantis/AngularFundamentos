@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { PhotoService } from '../photo/photo.service';
 import { ActivatedRoute } from '@angular/router';
+import { Photo } from '../photo/Photo';
 
 @Component({
-  selector: 'app-photo-list',
+  selector: 'ap-photo-list',
   templateUrl: './photo-list.component.html',
   styleUrls: ['./photo-list.component.css']
 })
@@ -14,7 +15,7 @@ export class PhotoListComponent implements OnInit {
   ) {
 
   }
-  photos: any[] = [];
+  photos: Photo[] = [];
 
   ngOnInit(): void {
     const username = this.activateRoute.snapshot.params.username;
