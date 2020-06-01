@@ -1,15 +1,16 @@
 import { NgModule } from '@angular/core';
 import { PhotoModule } from './photo/photo.module';
-import { PhotoFomrModule } from './photo-form/photo-form.module';
+import { PhotoFormModule } from './photo-form/photo-form.module';
 import { PhotoListModule } from './photo-list/photo-list.module';
-import { SearchComponent } from './photo-list/search/search.component';
-
+import { CardModule } from '../shared/components/card/card.module';
+import { DarkenOnHoverModule } from '../shared/directives/darken-on-hover/darken-on-hover.module';
 
 @NgModule({
     imports: [ 
         PhotoModule,
-        PhotoFomrModule,
-        PhotoListModule
+        PhotoFormModule,
+        PhotoListModule,
+        DarkenOnHoverModule
     ]
 })
 export class PhotosModule {}
