@@ -13,10 +13,11 @@ export class PhotoFormComponent implements OnInit {
   photoForm: FormGroup;
   file: File;
   preview: string;
+
   constructor(
-      private formBuilder: FormBuilder,
-      private photoService: PhotoService,
-      private router: Router
+    private formBuilder: FormBuilder,
+    private photoService: PhotoService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -24,15 +25,15 @@ export class PhotoFormComponent implements OnInit {
       file: ['', Validators.required],
       description: ['', Validators.maxLength(300)],
       allowComments: [true]
-    });
+    })
   }
 
   upload() {
     const description = this.photoForm.get('description').value;
     const allowComments = this.photoForm.get('allowComments').value;
-
-    this.photoService.upload(description, allowComments, this.file)
-      .subscribe( () => {this.router.navigate([''])} );
+    this.photoService
+      .upload(description, allowComments, this.file)
+      .subscribe(() => this.router.navigate(['']))
   }
 
   handleFile(file: File) {
@@ -41,5 +42,4 @@ export class PhotoFormComponent implements OnInit {
     reader.onload = (event: any) => this.preview = event.target.result;
     reader.readAsDataURL(file);
   }
-
 }

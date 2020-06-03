@@ -7,11 +7,11 @@ import { RequestInterceptor } from './auth/request.interceptor';
 import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
-    declarations: [ 
+    declarations: [
         HeaderComponent,
         FooterComponent
     ],
-    exports: [ 
+    exports: [
         HeaderComponent,
         FooterComponent
     ],
@@ -27,4 +27,4 @@ import { FooterComponent } from './footer/footer.component';
         }
     ]
 })
-export class CoreModule{}
+export class CoreModule { }
