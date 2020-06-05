@@ -7,7 +7,7 @@ import { NewUser } from './new-user';
 import { SignUpService } from './signup.service';
 import { Router } from '@angular/router';
 import { PlataformDetectorService } from 'src/app/core/plataform-Detector/plataform-detector.service';
-import { userNamePasswordValidator } from './userNamePassword.validator';
+import { userNamePassword } from './userNamePassword.validator';
 
 @Component({
     templateUrl: './signup.component.html'
@@ -57,7 +57,7 @@ export class SignUpComponent implements OnInit {
                 ]
             ]
         }, {
-            validator: userNamePasswordValidator
+            validator: userNamePassword
         });
         // tslint:disable-next-line: no-unused-expression
         this.platformDetectorService.isPlatformBrowser() &&
