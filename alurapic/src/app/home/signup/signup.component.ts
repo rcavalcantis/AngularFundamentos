@@ -7,6 +7,7 @@ import { NewUser } from './new-user';
 import { SignUpService } from './signup.service';
 import { Router } from '@angular/router';
 import { PlataformDetectorService } from 'src/app/core/plataform-Detector/plataform-detector.service';
+import { userNamePasswordValidator } from './userNamePassword.validator';
 
 @Component({
     templateUrl: './signup.component.html'
@@ -23,7 +24,7 @@ export class SignUpComponent implements OnInit {
             private router: Router,
             private platformDetectorService: PlataformDetectorService
     ){}
-    
+
     ngOnInit(): void {
         this.signupForm = this.formBuilder.group({
             email: ['', 
@@ -48,14 +49,17 @@ export class SignUpComponent implements OnInit {
                 ],
                 this.userNotTakenValidatorService.checkUserNameTaken()
             ],
-            password: ['', 
-                [ 
+            password: ['',
+                [
                     Validators.required,
                     Validators.minLength(8),
                     Validators.maxLength(14)
                 ]
             ]
+        }, {
+            validator: userNamePasswordValidator
         });
+        // tslint:disable-next-line: no-unused-expression
         this.platformDetectorService.isPlatformBrowser() &&
         this.emailInput.nativeElement.focus();
     }
