@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../core/auth/auth.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { PlatformDetectorService } from '../../core/plataform-detector/platform-detector.service';
 
 @Component({
@@ -10,21 +10,27 @@ import { PlatformDetectorService } from '../../core/plataform-detector/platform-
 export class SignInComponent implements OnInit {
     
     loginForm: FormGroup;
+    fromUrl: string;
     @ViewChild('userNameInput') userNameInput: ElementRef<HTMLInputElement>;
     
     constructor(
         private formBuilder: FormBuilder,
         private authService: AuthService,
         private router: Router,
-        private platformDetectorService: PlatformDetectorService) { }
+        private platformDetectorService: PlatformDetectorService,
+        private activetedRouter: ActivatedRoute) { }
 
     ngOnInit(): void {
+        this.activetedRouter
+            .queryParams
+            .subscribe(params => this.fromUrl = params['fromUrl']);
         this.loginForm = this.formBuilder.group({
             userName: ['', Validators.required],
             password: ['', Validators.required]
         });
-        this.platformDetectorService.isPlatformBrowser() && 
-        this.userNameInput.nativeElement.focus();        
+        // tslint:disable-next-line: no-unused-expression
+        this.platformDetectorService.isPlatformBrowser() &&
+        this.userNameInput.nativeElement.focus();
     } 
 
     login() {
@@ -34,7 +40,10 @@ export class SignInComponent implements OnInit {
         this.authService
             .authenticate(userName, password)
             .subscribe(
-                () => this.router.navigate(['user', userName]),
+                () => this.fromUrl
+                    ? this.router.navigateByUrl(this.fromUrl)
+                    : this.router.navigate(['user', userName])
+                ,
                 err => {
                     console.log(err);
                     this.loginForm.reset();
